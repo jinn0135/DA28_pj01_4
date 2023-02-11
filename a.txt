@@ -1,5 +1,22 @@
-a.txt
-b.txt
-add text
+# PlayData_DA_28_project01
 
-written in github
+# import
+# -> code
+
+# scrapping website(kyobo) to get 100 bestsellers of each years
+# from 2018 to 2022(5 years)
+# -> code
+
+# make sql table and commit
+# -> code
+
+# get informations using urls and insert into table
+# -> code
+
+# go to project1.sql file
+
+# read sql and get data
+# -> code
+
+# plot result
+# -> code
