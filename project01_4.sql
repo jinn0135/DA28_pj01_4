@@ -45,29 +45,16 @@ ORDER BY 2 DESC LIMIT 5;*/
 WHERE years = 2022 AND genre in ('소설','시/에세이','인문','자기계발','경제/경영')
 GROUP BY genre, likes ORDER BY genre;*/
 
-#장르 상위 5개  추출
-SELECT genre, count(*) g_c FROM best_books_5years
-GROUP BY genre HAVING count(*) > 30
-ORDER BY g_c DESC;
-
-#뷰_ 장르별 장당 가격 및 순위
-CREATE OR REPLACE VIEW g_pr_p_r AS(
-SELECT title, publisher, genre,	page, price, ranks,
+# (python에서 호출)
+/*WITH high_g AS(
+	SELECT genre, count(*) g_c FROM best_books_5years
+	GROUP BY genre ORDER BY g_c DESC LIMIT 5) ,
+g_pr_p_r AS (
+	SELECT title, publisher, genre, page, price, ranks,
     ifnull(round(price/page), 0) pr_per_p
-FROM best_books_5years
-GROUP BY genre, title, publisher, page, ranks, price, pr_per_p
-ORDER BY genre, pr_per_p DESC, page DESC, ranks);
-
-#장르별 장당가격 시각화
-SELECT genre 장르, price, pr_per_p, ranks FROM g_pr_p_r
-GROUP BY genre, title, publisher, page, price
-ORDER BY genre, ranks_pr, page DESC ;
-
-#합치기
-WITH high_g AS(
-	SELECT genre, count(*) g_c FROM best_books2
-	GROUP BY genre HAVING count(*) >30 #상위 5장르
-	ORDER BY g_c DESC)
+	FROM best_books_5years
+	GROUP BY genre, title, publisher, page, ranks, price, pr_per_p
+	ORDER BY genre, pr_per_p DESC, page DESC, ranks)
 SELECT 	b.genre, a.pr_per_p, a.ranks
-FROM g_pr_p_r a
-NATURAL JOIN high_g b;
+FROM best_books_5years c NATURAL JOIN high_g b 
+						 NATURAL JOIN g_pr_p_r a;*/
