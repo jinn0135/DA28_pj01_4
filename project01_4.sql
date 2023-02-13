@@ -46,15 +46,13 @@ WHERE years = 2022 AND genre in ('소설','시/에세이','인문','자기계발
 GROUP BY genre, likes ORDER BY genre;*/
 
 # (python에서 호출)
-/*WITH high_g AS(
-	SELECT genre, count(*) g_c FROM best_books_5years
-	GROUP BY genre ORDER BY g_c DESC LIMIT 5) ,
-g_pr_p_r AS (
+WITH g_pr_p_r AS (
 	SELECT title, publisher, genre, page, price, ranks,
     ifnull(round(price/page), 0) pr_per_p
 	FROM best_books_5years
 	GROUP BY genre, title, publisher, page, ranks, price, pr_per_p
 	ORDER BY genre, pr_per_p DESC, page DESC, ranks)
-SELECT 	b.genre, a.pr_per_p, a.ranks
-FROM best_books_5years c NATURAL JOIN high_g b 
-						 NATURAL JOIN g_pr_p_r a;*/
+SELECT 	c.genre, a.pr_per_p, a.ranks
+FROM best_books_5years c NATURAL JOIN g_pr_p_r a
+WHERE c.genre in ('경제/경영','소설','시/에세이','인문','자기계발') AND
+	  c.years = 2018;
