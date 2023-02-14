@@ -1,4 +1,5 @@
 # 장르 인덱스 테이블 생성
+use mywork;
 CREATE TABLE IF NOT EXISTS genre_idx(
     genre varchar(20) NOT NULL,
     PRIMARY KEY(genre));
